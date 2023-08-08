@@ -1,4 +1,8 @@
-# Proteogenomic Analysis of a Korean NSCLC Cohort
+# 후향_Github (Code repository)
+
+# README.md
+
+## Proteogenomic Analysis of a Korean NSCLC Cohort
 
 This study presents genetic proteomic data from 229 Korean patients with non-small cell lung cancer (NSCLC) to uncover the molecular characteristics of different subtypes, including those previously reported (LUAD/LSCC) and newly discovered ones. The paper serves as a valuable resource, providing an in-depth analysis of each subtype's molecular features.
 
@@ -101,7 +105,7 @@ Tumor immune microenvironment (TIME) plays a critical role in understanding the 
 
 ### Cell composition inference and clustering of the tumor immune microenvironment
 
-In our analysis, we employed two methods to cluster the tumor immune microenvironment. One method is xCell ([https://github.com/dviraran/xCell](https://github.com/dviraran/xCell)), which is an analysis based on cell type enrichment, and the other method involves performing GSVA analysis ([https://bioconductor.org/packages/release/bioc/html/GSVA.html](https://bioconductor.org/packages/release/bioc/html/GSVA.html)) based on immune-related pathways described [Hu et al](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2020.01189/full). Based on the cell composition socres obtained from xCell, we utilized the "CancerSubtypes" package in R ([https://bioconductor.org/packages/release/bioc/html/CancerSubtypes.html](https://bioconductor.org/packages/release/bioc/html/CancerSubtypes.html)) to perform clustering into hot-tumor-enriched (HTE), cold-tumor-enriched (CTE), and NAT-enriched subtypes.
+In our analysis, we employed two methods to cluster the tumor immune microenvironment. One method is xCell ([https://github.com/dviraran/xCell](https://github.com/dviraran/xCell)), which is an analysis based on cell type enrichment (”**run_xCell.R**”), and the other method involves performing GSVA analysis (”**run_immunogram.R**”)([https://bioconductor.org/packages/release/bioc/html/GSVA.html](https://bioconductor.org/packages/release/bioc/html/GSVA.html)) based on immune-related pathways described [Hu et al](https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2020.01189/full). Based on the cell composition socres obtained from xCell, we utilized the "CancerSubtypes" package in R ([https://bioconductor.org/packages/release/bioc/html/CancerSubtypes.html](https://bioconductor.org/packages/release/bioc/html/CancerSubtypes.html)) to perform clustering into hot-tumor-enriched (HTE), cold-tumor-enriched (CTE), and NAT-enriched subtypes. (The following is included below the ”**run_xCell.R**”)
 
 ```python
 # Parameters for Execute Consensus Clustering
@@ -113,15 +117,15 @@ distance="pearson"
 
 ### Identification of putative regulators associated with immune landscape
 
-To identify key genes influencing the immune landscape, we used transcriptome data and proteomics data. We inferred protein activity based on the transcriptome data using the "viper" package in R ([https://www.bioconductor.org/packages/release/bioc/html/viper.html](https://www.bioconductor.org/packages/release/bioc/html/viper.html)). To utilize this tool, we downloaded the regulon network from the "ARACNe" package in R ([http://bioconductor.org/packages/release/data/experiment/html/aracne.networks.html](http://bioconductor.org/packages/release/data/experiment/html/aracne.networks.html)). Next, we examined the correlation between the levels of RNA expression, protein expression, and protein activity in relation to the enrichment score of immune cells or the status of immune clusters and immunomodulators using the "stats" package in R.
+To identify key genes influencing the immune landscape, we used transcriptome data and proteomics data. We inferred protein activity based on the transcriptome data using the "viper" package in R ([https://www.bioconductor.org/packages/release/bioc/html/viper.html](https://www.bioconductor.org/packages/release/bioc/html/viper.html)). To utilize this tool, we downloaded the regulon network from the "ARACNe" package in R ([http://bioconductor.org/packages/release/data/experiment/html/aracne.networks.html](http://bioconductor.org/packages/release/data/experiment/html/aracne.networks.html)) (”**Run_viper.R**”). Next, we examined the correlation between the levels of RNA expression, protein expression, and protein activity in relation to the enrichment score of immune cells or the status of immune clusters and immunomodulators using the "stats" package in R. You can obtain the code to check the correlation and identify significant immunomodulators influencing the status of immune clusters and immune cells by sequentially executing “**run_immunomodulator_regression.R**” and “**run_check_immunomodulator_regression.R**” code.
 
-Furthermore, to analyze whether specific driver mutations are involved in the relationship between immunomodulators and immune cells or immune clusters, we utilized driver mutation data from Oncovar ([Wang et al](https://academic.oup.com/nar/article/49/D1/D1289/5976976?login=true)), DriverDBv3 ([Liu et al](https://academic.oup.com/nar/article/48/D1/D863/5614573?login=true)), Intogen ([Gundem et al](https://www.nature.com/articles/nmeth0210-92)), and the mutation catalogue from [Martínez-Jiménez et al](https://www.nature.com/articles/s41568-020-0290-x).
+Furthermore, to analyze whether specific driver mutations are involved in the relationship between immunomodulators and immune cells or immune clusters (”**run_driver_mutation_analysis.R**”), we utilized driver mutation data from Oncovar ([Wang et al](https://academic.oup.com/nar/article/49/D1/D1289/5976976?login=true)), DriverDBv3 ([Liu et al](https://academic.oup.com/nar/article/48/D1/D863/5614573?login=true)), Intogen ([Gundem et al](https://www.nature.com/articles/nmeth0210-92)), and the mutation catalogue from [Martínez-Jiménez et al](https://www.nature.com/articles/s41568-020-0290-x).
 
 ## [7] Neo-antigen prediction
 
 ### Prediction of HLA binding neoepitopes
 
-To generate a peptide fragment from a mutation locus, we employed Ensembl VEP (Variant Effect Predictor) to obtain detailed information for each mutation in the VCF file derived from Whole Exome Sequencing (WES) ([https://asia.ensembl.org/info/docs/tools/vep/index.html](https://asia.ensembl.org/info/docs/tools/vep/index.html)). 
+To generate a peptide fragment from a mutation locus, we employed Ensembl VEP (Variant Effect Predictor) to obtain detailed information for each mutation in the VCF file derived from Whole Exome Sequencing (WES) ([https://asia.ensembl.org/info/docs/tools/vep/index.html](https://asia.ensembl.org/info/docs/tools/vep/index.html)) (“**run_Ensembl_VEP.py**”). 
 
 ```powershell
 # Parameters for vep run
@@ -134,4 +138,4 @@ To generate a peptide fragment from a mutation locus, we employed Ensembl VEP (V
 --fasta Homo_sapiens.GRCh38.dna.primary_assembly.fa
 ```
 
-Afterwards, we extended the flanking amino acid sequences around the mutations using pVACseq, which is a module of pVACtools ([https://pvactools.readthedocs.io/en/latest/](https://pvactools.readthedocs.io/en/latest/)). These amino acid sequences were segmented into lengths of 9-12 amino acids to be predict their binding to HLAs. This was achieved by ustilizing NetMHCpan ([https://services.healthtech.dtu.dk/services/NetMHCpan-4.1/](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1/)) and MHCflurry ([https://github.com/openvax/mhcflurry](https://github.com/openvax/mhcflurry)) against patient-specific HLA alleles. In our consideration of HLA binding neoepitopes, we defined them as 'WB' (Weak Binder) or 'SB' (Strong Binder) based on the predictions from NetMHCpan. Additionally, we identified those with a binding affinity under 500nM in the predictions from MHCflurry.
+Afterwards, we extended the flanking amino acid sequences around the mutations using pVACseq, which is a module of pVACtools ([https://pvactools.readthedocs.io/en/latest/](https://pvactools.readthedocs.io/en/latest/)). These amino acid sequences were segmented into lengths of 9-12 amino acids to be predict their binding to HLAs (“**run_pVACtools.py**”). This was achieved by ustilizing NetMHCpan ([https://services.healthtech.dtu.dk/services/NetMHCpan-4.1/](https://services.healthtech.dtu.dk/services/NetMHCpan-4.1/)) (“**run_NetMHCpan.py**”) and MHCflurry ([https://github.com/openvax/mhcflurry](https://github.com/openvax/mhcflurry)) (“**run_MHCflurry.py**”) against patient-specific HLA alleles. In our consideration of HLA binding neoepitopes, we defined them as 'WB' (Weak Binder) or 'SB' (Strong Binder) based on the predictions from NetMHCpan. Additionally, we identified those with a binding affinity under 500nM in the predictions from MHCflurry.

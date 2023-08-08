@@ -1,8 +1,4 @@
-# 후향_Github (Code repository)
-
-# README.md
-
-## Proteogenomic Analysis of a Korean NSCLC Cohort
+# Proteogenomic Analysis of a Korean NSCLC Cohort
 
 This study presents genetic proteomic data from 229 Korean patients with non-small cell lung cancer (NSCLC) to uncover the molecular characteristics of different subtypes, including those previously reported (LUAD/LSCC) and newly discovered ones. The paper serves as a valuable resource, providing an in-depth analysis of each subtype's molecular features.
 
